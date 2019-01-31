@@ -8,13 +8,11 @@
 
 import UIKit
 
-class CurrenciesViewController: BaseViewController {
-
+class CurrenciesViewController: BaseViewController<CurrenciesListUIView> {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
-
 
 }
 
