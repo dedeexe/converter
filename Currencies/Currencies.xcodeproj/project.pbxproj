@@ -19,6 +19,7 @@
 		91F21E5E2203C78F000B72B8 /* RequestMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F21E5D2203C78F000B72B8 /* RequestMethod.swift */; };
 		91F21E602203C7B4000B72B8 /* RequestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F21E5F2203C7B4000B72B8 /* RequestResult.swift */; };
 		91F21E622203C8E8000B72B8 /* Dictionary+Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F21E612203C8E8000B72B8 /* Dictionary+Encoder.swift */; };
+		91F21E652203CB77000B72B8 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F21E642203CB77000B72B8 /* Config.swift */; };
 		A8C6F58D22007FF100791E3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C6F58C22007FF100791E3C /* AppDelegate.swift */; };
 		A8C6F58F22007FF100791E3C /* CurrenciesListviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C6F58E22007FF100791E3C /* CurrenciesListviewController.swift */; };
 		A8C6F59422007FF300791E3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8C6F59322007FF300791E3C /* Assets.xcassets */; };
@@ -52,6 +53,7 @@
 		91F21E5D2203C78F000B72B8 /* RequestMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMethod.swift; sourceTree = "<group>"; };
 		91F21E5F2203C7B4000B72B8 /* RequestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestResult.swift; sourceTree = "<group>"; };
 		91F21E612203C8E8000B72B8 /* Dictionary+Encoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Encoder.swift"; sourceTree = "<group>"; };
+		91F21E642203CB77000B72B8 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		A8C6F58922007FF100791E3C /* Currencies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Currencies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8C6F58C22007FF100791E3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A8C6F58E22007FF100791E3C /* CurrenciesListviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesListviewController.swift; sourceTree = "<group>"; };
@@ -131,6 +133,14 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		91F21E632203CB6D000B72B8 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				91F21E642203CB77000B72B8 /* Config.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		A8C6F58022007FF100791E3C = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +162,7 @@
 		A8C6F58B22007FF100791E3C /* Currencies */ = {
 			isa = PBXGroup;
 			children = (
+				91F21E632203CB6D000B72B8 /* App */,
 				A8C6F5AE2200804B00791E3C /* Common */,
 				91F21E4B22028D13000B72B8 /* Coordinators */,
 				A8C6F5AC2200801E00791E3C /* Scene */,
@@ -323,6 +334,7 @@
 				91F21E582203C719000B72B8 /* WebService.swift in Sources */,
 				91F21E5422028EE8000B72B8 /* CurrencyService.swift in Sources */,
 				91F21E4A22028BF5000B72B8 /* Coordinator.swift in Sources */,
+				91F21E652203CB77000B72B8 /* Config.swift in Sources */,
 				91F21E622203C8E8000B72B8 /* Dictionary+Encoder.swift in Sources */,
 				91F21E43220280EB000B72B8 /* ImageRequester.swift in Sources */,
 				91F21E5E2203C78F000B72B8 /* RequestMethod.swift in Sources */,

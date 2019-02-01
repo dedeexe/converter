@@ -1,5 +1,5 @@
 //
-//  CurrencyService.swift
+//  Config.swift
 //  Currencies
 //
 //  Created by dede.exe on 31/01/19.
@@ -8,10 +8,8 @@
 
 import Foundation
 
-struct CurrencyServiceEndpoint : Endpoint {
+struct AppConfig {
     
-}
-
-class CurrencyService {
+    static var baseURL = ""
     
 }
