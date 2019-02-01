@@ -13,6 +13,12 @@
 		91F21E4A22028BF5000B72B8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F21E4922028BF4000B72B8 /* Coordinator.swift */; };
 		91F21E4D22028D32000B72B8 /* CurrenciesListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F21E4C22028D32000B72B8 /* CurrenciesListCoordinator.swift */; };
 		91F21E5422028EE8000B72B8 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F21E5322028EE8000B72B8 /* CurrencyService.swift */; };
+		91F21E582203C719000B72B8 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F21E572203C719000B72B8 /* WebService.swift */; };
+		91F21E5A2203C74F000B72B8 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F21E592203C74F000B72B8 /* EndPoint.swift */; };
+		91F21E5C2203C781000B72B8 /* RequestEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F21E5B2203C781000B72B8 /* RequestEncoding.swift */; };
+		91F21E5E2203C78F000B72B8 /* RequestMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F21E5D2203C78F000B72B8 /* RequestMethod.swift */; };
+		91F21E602203C7B4000B72B8 /* RequestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F21E5F2203C7B4000B72B8 /* RequestResult.swift */; };
+		91F21E622203C8E8000B72B8 /* Dictionary+Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F21E612203C8E8000B72B8 /* Dictionary+Encoder.swift */; };
 		A8C6F58D22007FF100791E3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C6F58C22007FF100791E3C /* AppDelegate.swift */; };
 		A8C6F58F22007FF100791E3C /* CurrenciesListviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C6F58E22007FF100791E3C /* CurrenciesListviewController.swift */; };
 		A8C6F59422007FF300791E3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8C6F59322007FF300791E3C /* Assets.xcassets */; };
@@ -40,6 +46,12 @@
 		91F21E4922028BF4000B72B8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		91F21E4C22028D32000B72B8 /* CurrenciesListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesListCoordinator.swift; sourceTree = "<group>"; };
 		91F21E5322028EE8000B72B8 /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
+		91F21E572203C719000B72B8 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		91F21E592203C74F000B72B8 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		91F21E5B2203C781000B72B8 /* RequestEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestEncoding.swift; sourceTree = "<group>"; };
+		91F21E5D2203C78F000B72B8 /* RequestMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMethod.swift; sourceTree = "<group>"; };
+		91F21E5F2203C7B4000B72B8 /* RequestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestResult.swift; sourceTree = "<group>"; };
+		91F21E612203C8E8000B72B8 /* Dictionary+Encoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Encoder.swift"; sourceTree = "<group>"; };
 		A8C6F58922007FF100791E3C /* Currencies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Currencies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8C6F58C22007FF100791E3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A8C6F58E22007FF100791E3C /* CurrenciesListviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesListviewController.swift; sourceTree = "<group>"; };
@@ -106,6 +118,19 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		91F21E562203C6E9000B72B8 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				91F21E572203C719000B72B8 /* WebService.swift */,
+				91F21E5D2203C78F000B72B8 /* RequestMethod.swift */,
+				91F21E592203C74F000B72B8 /* EndPoint.swift */,
+				91F21E5B2203C781000B72B8 /* RequestEncoding.swift */,
+				91F21E5F2203C7B4000B72B8 /* RequestResult.swift */,
+				91F21E612203C8E8000B72B8 /* Dictionary+Encoder.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		A8C6F58022007FF100791E3C = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +192,7 @@
 		A8C6F5AE2200804B00791E3C /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				91F21E562203C6E9000B72B8 /* Networking */,
 				91F21E5122028E76000B72B8 /* Services */,
 				91F21E41220280E3000B72B8 /* Protocols */,
 				91F21E3E2202805B000B72B8 /* Extensions */,
@@ -293,14 +319,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91F21E602203C7B4000B72B8 /* RequestResult.swift in Sources */,
+				91F21E582203C719000B72B8 /* WebService.swift in Sources */,
 				91F21E5422028EE8000B72B8 /* CurrencyService.swift in Sources */,
 				91F21E4A22028BF5000B72B8 /* Coordinator.swift in Sources */,
+				91F21E622203C8E8000B72B8 /* Dictionary+Encoder.swift in Sources */,
 				91F21E43220280EB000B72B8 /* ImageRequester.swift in Sources */,
+				91F21E5E2203C78F000B72B8 /* RequestMethod.swift in Sources */,
 				91F21E4D22028D32000B72B8 /* CurrenciesListCoordinator.swift in Sources */,
 				A8C6F58F22007FF100791E3C /* CurrenciesListviewController.swift in Sources */,
+				91F21E5A2203C74F000B72B8 /* EndPoint.swift in Sources */,
 				A8C6F5B42200828200791E3C /* CurrenciesListUIView.swift in Sources */,
 				A8C6F58D22007FF100791E3C /* AppDelegate.swift in Sources */,
 				91F21E4722028350000B72B8 /* TableView+Reusable.swift in Sources */,
+				91F21E5C2203C781000B72B8 /* RequestEncoding.swift in Sources */,
 				91F21E402202809B000B72B8 /* UIVIew+Instanciation.swift in Sources */,
 				A8C6F5B12200806100791E3C /* BaseViewController.swift in Sources */,
 			);
