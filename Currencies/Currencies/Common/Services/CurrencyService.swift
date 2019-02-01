@@ -10,8 +10,23 @@ import Foundation
 
 struct CurrencyServiceEndpoint : Endpoint {
     
+    let base : String
+    
+    var baseURL: String { return AppConfig.baseURL }
+    var path: String { return "latest" }
+    var method: RequestMethod = .get
+    var parameters: [String : Any] { return ["base" : self.base] }
+    
+    var headers: [String : String] = [:]
+    
+    init(base:String) {
+        self.base = base
+    }
+    
 }
 
 class CurrencyService {
+    
+    
     
 }

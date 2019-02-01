@@ -10,6 +10,7 @@ import Foundation
 
 struct AppConfig {
     
-    static var baseURL = ""
+    static var baseURL = "https://revolut.duckdns.org/"
+
     
 }
