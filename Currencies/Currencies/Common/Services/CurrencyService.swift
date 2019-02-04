@@ -19,14 +19,36 @@ struct CurrencyServiceEndpoint : Endpoint {
     
     var headers: [String : String] = [:]
     
-    init(base:String) {
-        self.base = base
+    init(base:Currency) {
+        self.base = base.rawValue
     }
     
 }
 
 class CurrencyService {
     
+    var currency : Currency
+    private var endpoint : CurrencyServiceEndpoint
     
+    init() {
+        currency = .EUR
+        endpoint = CurrencyServiceEndpoint(base: currency)
+    }
+    
+    func getCurrencies() {
+        
+        WebService.instance.request(request: endpoint) { (result, _ ) in
+            
+            switch result {
+            case .success(_, let values):
+                print(values)
+                
+            case .fail(_, let err):
+                print(err.localizedDescription)
+            }
+            
+        }
+        
+    }
     
 }
