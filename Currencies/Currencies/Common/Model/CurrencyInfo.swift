@@ -11,8 +11,8 @@ import Foundation
 struct CurrencyInfo {
     
     let isBase : Bool
-    let name : String
     let value : Double
+    let name : String
     let multiplier : Double
     
     init(name:String, value:Double, multiplier:Double = 1.0, isBase:Bool = false) {
@@ -20,6 +20,20 @@ struct CurrencyInfo {
         self.value = value
         self.name = name
         self.multiplier = multiplier
+    }
+
+    init(from currency:CurrencyInfo, multiplier:Double) {
+        self.isBase = currency.isBase
+        self.value = currency.value
+        self.name = currency.name
+        self.multiplier = multiplier
+    }
+
+    init(from currency:CurrencyInfo) {
+        self.isBase = false
+        self.value = currency.value
+        self.name = currency.name
+        self.multiplier = currency.multiplier
     }
     
     var convertedValue : Double {
@@ -29,17 +43,17 @@ struct CurrencyInfo {
     
 }
 
-extension CurrencyInfo : Comparable {
+extension CurrencyInfo : Comparable, Hashable {
     static func < (lhs: CurrencyInfo, rhs: CurrencyInfo) -> Bool {
-        if lhs.isBase == true {
-            return true
-        }
-        
-        return lhs.name < rhs.name
+        if rhs.isBase { return false }
+        return lhs.isBase || (lhs.name < rhs.name)
     }
     
     static func == (lhs: CurrencyInfo, rhs: CurrencyInfo) -> Bool {
         return lhs.name == rhs.name
     }
     
+    var hashValue : Int {
+        return self.name.hashValue
+    }
 }

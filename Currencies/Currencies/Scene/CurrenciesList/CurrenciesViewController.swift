@@ -15,6 +15,7 @@ class CurrenciesViewController: BaseViewController<CurrenciesListUIView> {
     init(view:CurrenciesListUIView, interactor:CurrenciesInputInteractor) {
         self.interactor = interactor
         super.init(contentView: view)
+        view.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -23,6 +24,7 @@ class CurrenciesViewController: BaseViewController<CurrenciesListUIView> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        interactor.getCurrencies()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -39,10 +41,22 @@ class CurrenciesViewController: BaseViewController<CurrenciesListUIView> {
 
 extension CurrenciesViewController : CurrenciesOutputInteractor {
     func fetch(currencies: [CurrencyInfo]) {
-        
+        contentView.update(currencies: currencies)
     }
     
     func handle(error: Error) {
+        print("Error: \(error.localizedDescription)")
+    }
+}
+
+extension CurrenciesViewController : CurrenciesListUIViewDelegate {
+    func tableHandler(_ handler: CurrencyTableHandler, didSelect currency: CurrencyInfo) {
+        guard let currencyType = Currency(rawValue: currency.name) else { return }
+        let currencyValue = currency.value
+        interactor.update(value: currencyValue, for: currencyType)
+    }
+    
+    func currencyView(view: CurrencyView, didUpdate value: String) {
         
     }
 }

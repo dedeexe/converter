@@ -12,6 +12,7 @@ protocol CurrenciesInputInteractor : class {
     func start()
     func stop()
     func update(value:Double, for currency:Currency)
+    func getCurrencies()
 }
 
 protocol CurrenciesOutputInteractor : class {

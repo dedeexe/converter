@@ -10,13 +10,18 @@ import Foundation
 
 class CurrenciesInteractor : CurrenciesInputInteractor {
     
-    private var currency : Currency = .EUR
+    private var currency : Currency = .EUR {
+        didSet { service.currency = currency }
+    }
+    
     private var value : Double = 1.0
     
     private let service : CurrencyService
     private var timer : Timer?
     
     weak var delegate : CurrenciesOutputInteractor?
+    
+    private var lastResult : [CurrencyInfo] = []
     
     init(service:CurrencyService? = nil) {
         self.service = service ?? CurrencyService()
@@ -25,7 +30,7 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
     func start() {
         guard timer == nil else { return }
         timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
-            self?.sendRequest()
+            self?.getCurrencies()
         }
     }
     
@@ -39,12 +44,17 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
         
         if self.currency != currency {
             self.currency = currency
-            sendRequest()
+            stop()
+            getCurrencies()
+            start()
             return
         }
+        
+        let notBaseCurrencies = lastResult.map { CurrencyInfo(from: $0) }
+        response(currencies: notBaseCurrencies)
     }
     
-    func sendRequest() {
+    func getCurrencies() {
         service.getCurrencies { [weak self] result in
             switch result {
             case .success(_, let currencies):
@@ -56,8 +66,12 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
     }
     
     func response(currencies:[CurrencyInfo]) {
-        let currenciesList = currencies + [CurrencyInfo(name: currency.rawValue, value: value, isBase: true)]
-        delegate?.fetch(currencies: currenciesList.sorted())
+        var currenciesList = Set<CurrencyInfo>(currencies.compactMap { CurrencyInfo(from: $0, multiplier: value) })
+        let baseCurrency = CurrencyInfo(name: currency.rawValue, value: value, isBase: true)
+        currenciesList.insert(baseCurrency)
+        let orderedList = Array(currenciesList).sorted()
+        lastResult = orderedList
+        delegate?.fetch(currencies: orderedList)
     }
 
     func handle(error:Error) {

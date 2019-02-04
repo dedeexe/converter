@@ -14,9 +14,13 @@ extension ReusableCell {
 
 extension UITableView {
     
-    func registerReusableCell<T:UITableViewCell>(_ :T.Type) where T:ReusableCell {
-        let nib = UINib(nibName: String(describing: T.self), bundle: nil)
+    func registerReusableCell<T:UITableViewCell>(_ :T.Type, nibName:String) where T:ReusableCell {
+        let nib = UINib(nibName: nibName, bundle: nil)
         self.register(nib, forCellReuseIdentifier: T.reuseIdentifier)
+    }
+
+    func registerReusableCell<T:UITableViewCell>(_ :T.Type) where T:ReusableCell {
+        self.register(T.self, forCellReuseIdentifier: T.reuseIdentifier)
     }
     
 }

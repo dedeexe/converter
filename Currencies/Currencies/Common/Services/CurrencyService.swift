@@ -27,15 +27,15 @@ struct CurrencyServiceEndpoint : Endpoint {
 
 class CurrencyService {
     
-    var currency : Currency
-    private var endpoint : CurrencyServiceEndpoint
-    
+    var currency : Currency = .EUR
+        
     init() {
         currency = .EUR
-        endpoint = CurrencyServiceEndpoint(base: currency)
     }
     
     func getCurrencies(then completion: @escaping (RequestResult<[CurrencyInfo]>) -> Void) {
+        
+        let endpoint = CurrencyServiceEndpoint(base: currency)
         
         WebService.instance.request(request: endpoint) { [weak self] (result, _ ) in
             

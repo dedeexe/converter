@@ -15,6 +15,7 @@ final class CurrenciesConfigurator {
         let interactor = CurrenciesInteractor()
         let controller = CurrenciesViewController(view: ui, interactor: interactor)
         
+        ui.delegate = controller
         interactor.delegate = controller
         
         return controller
