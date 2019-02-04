@@ -11,8 +11,10 @@ import Foundation
 protocol CurrenciesInputInteractor : class {
     func start()
     func stop()
+    func update(value:Double, for currency:Currency)
 }
 
 protocol CurrenciesOutputInteractor : class {
-    func fetch()
+    func fetch(currencies:[CurrencyInfo])
+    func handle(error:Error)
 }

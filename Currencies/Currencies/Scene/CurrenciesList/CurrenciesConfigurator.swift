@@ -11,7 +11,7 @@ import UIKit
 final class CurrenciesConfigurator {
     
     static func create() -> CurrenciesViewController {
-        let ui = CurrenciesListUIView()
+        let ui : CurrenciesListUIView = UIView.instantiateFromNib(named: "CurrenciesListUIView")
         let interactor = CurrenciesInteractor()
         let controller = CurrenciesViewController(view: ui, interactor: interactor)
         

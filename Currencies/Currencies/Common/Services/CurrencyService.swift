@@ -35,20 +35,33 @@ class CurrencyService {
         endpoint = CurrencyServiceEndpoint(base: currency)
     }
     
-    func getCurrencies() {
+    func getCurrencies(then completion: @escaping (RequestResult<[CurrencyInfo]>) -> Void) {
         
-        WebService.instance.request(request: endpoint) { (result, _ ) in
+        WebService.instance.request(request: endpoint) { [weak self] (result, _ ) in
             
             switch result {
-            case .success(_, let values):
-                print(values)
+            case .success(let statusCode, let values):
+                let convertedResult = self?.convertCurrency(jsonString: values) ?? []
+                completion(RequestResult<[CurrencyInfo]>.success(statusCode, convertedResult))
                 
-            case .fail(_, let err):
-                print(err.localizedDescription)
+            case .fail(let statusCode, let err):
+                completion(RequestResult<[CurrencyInfo]>.fail(statusCode, err))
             }
             
         }
         
+    }
+    
+    private func convertCurrency(jsonString:String?) -> [CurrencyInfo] {
+        guard let data = jsonString?.data(using: .utf8) else { return [] }
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as? [String:Any] else { return [] }
+        
+        let rates = (json?["rates"] as? [String:Double]) ?? [:]
+        let currencies = rates.compactMap {
+            CurrencyInfo(name: $0.key, value: $0.value)
+        }
+        
+        return currencies
     }
     
 }

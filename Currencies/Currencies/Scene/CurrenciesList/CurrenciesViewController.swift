@@ -38,7 +38,11 @@ class CurrenciesViewController: BaseViewController<CurrenciesListUIView> {
 }
 
 extension CurrenciesViewController : CurrenciesOutputInteractor {
-    func fetch() {
-        print("FFFFFFOOOIIII")
+    func fetch(currencies: [CurrencyInfo]) {
+        
+    }
+    
+    func handle(error: Error) {
+        
     }
 }

@@ -8,10 +8,38 @@
 
 import Foundation
 
-struct CurrencyInfo : Serializable {
+struct CurrencyInfo {
     
-    var isBase : Bool?
-    var name : String?
-    var value : Double?
+    let isBase : Bool
+    let name : String
+    let value : Double
+    let multiplier : Double
+    
+    init(name:String, value:Double, multiplier:Double = 1.0, isBase:Bool = false) {
+        self.isBase = isBase
+        self.value = value
+        self.name = name
+        self.multiplier = multiplier
+    }
+    
+    var convertedValue : Double {
+        if isBase { return value }
+        return value * multiplier
+    }
+    
+}
+
+extension CurrencyInfo : Comparable {
+    static func < (lhs: CurrencyInfo, rhs: CurrencyInfo) -> Bool {
+        if lhs.isBase == true {
+            return true
+        }
+        
+        return lhs.name < rhs.name
+    }
+    
+    static func == (lhs: CurrencyInfo, rhs: CurrencyInfo) -> Bool {
+        return lhs.name == rhs.name
+    }
     
 }
