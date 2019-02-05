@@ -14,39 +14,46 @@ protocol CurrencyTableHandlerDelegate : CurrencyCellDelegate {
 
 class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegate {
     
-    weak var delegate : CurrencyTableHandlerDelegate?
+    private enum Sections : Int {
+        case base = 0
+        case currencies
+        case total
+    }
+
     unowned let tableView : UITableView
+    weak var delegate : CurrencyTableHandlerDelegate?
+    private var currencies: [CurrencyInfo] = []
+    private var baseCurrency : CurrencyInfo? = nil
     
-    var currencies: [CurrencyInfo] = [] {
-        didSet { update() }
+    func update(base:CurrencyInfo, currencies:[CurrencyInfo]) {
+        self.currencies = currencies
+        self.baseCurrency = base
+        self.tableView.reloadData()
     }
     
     init(tableView : UITableView) {
         self.tableView = tableView
-        super.init()
-        self.register()
         
+        super.init()
+        
+        self.tableView.registerReusableCell(CurrencyCell.self)
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.separatorStyle = .none
     }
     
-    private func update() {
-        DispatchQueue.main.async { [weak self] in
-            self?.tableView.reloadData()
-        }
-    }
-    
-    private func register() {
-        tableView.registerReusableCell(CurrencyCell.self)
-    }
+    //MARK: - TableView DataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return Sections.total.rawValue
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currencies.count
+        if case Sections.currencies.rawValue = section {
+            return currencies.count
+        }
+        
+        return (baseCurrency != nil) ? 1 : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,9 +63,17 @@ class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegat
         }
         
         cell.delegate = self.delegate
-        cell.update(currency: currencies[indexPath.row])
+        
+        if case Sections.base.rawValue = indexPath.section, let base = baseCurrency {
+            cell.update(currency: base)
+        } else if case Sections.currencies.rawValue = indexPath.section {
+            cell.update(currency: currencies[indexPath.row])
+        }
+        
         return cell
     }
+    
+    //MARK: - TableView Delegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCurrency = currencies[indexPath.row]

@@ -28,8 +28,10 @@ class CurrenciesListUIView : UIView {
         tableHandler = CurrencyTableHandler(tableView: tableView)
     }
     
-    func update(currencies:[CurrencyInfo]) {
-        tableHandler?.currencies = currencies
+    func update(currencies:[CurrencyInfo], base:CurrencyInfo) {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableHandler?.update(base: base, currencies: currencies)
+        }
     }
     
 }

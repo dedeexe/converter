@@ -11,9 +11,10 @@ import UIKit
 enum Currency : String, CaseIterable {
     
     case AUD
-    case BGN, BRL, CAD
-    case CHF, CNY, CZK
+    case BGN, BRL
+    case CAD, CHF, CNY, CZK
     case DKK
+    case EUR
     case GBP
     case HKD, HRK, HUF
     case IDR, ILS, INR, ISK
@@ -27,7 +28,6 @@ enum Currency : String, CaseIterable {
     case THB, TRY
     case USD
     case ZAR
-    case EUR
     
     var description : String {
         let values : [Currency : String] = [
@@ -39,6 +39,7 @@ enum Currency : String, CaseIterable {
             Currency.CNY : "Chinese yuan",
             Currency.CZK : "Czech koruna",
             Currency.DKK : "Danish krone",
+            Currency.EUR : "Euro",
             Currency.GBP : "British pound",
             Currency.HKD : "Hong Kong dollar",
             Currency.HRK : "Croatian kuna",

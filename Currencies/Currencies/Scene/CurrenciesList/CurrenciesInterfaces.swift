@@ -16,6 +16,6 @@ protocol CurrenciesInputInteractor : class {
 }
 
 protocol CurrenciesOutputInteractor : class {
-    func fetch(currencies:[CurrencyInfo])
+    func fetch(currencies:[CurrencyInfo], base:CurrencyInfo)
     func handle(error:Error)
 }

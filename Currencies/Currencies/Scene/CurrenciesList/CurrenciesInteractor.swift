@@ -73,12 +73,9 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
     }
     
     func response(currencies:[CurrencyInfo]) {
-        var currenciesList = Set<CurrencyInfo>(currencies.compactMap { CurrencyInfo(from: $0, multiplier: value) })
-        let baseCurrency = CurrencyInfo(name: currency.rawValue, value: value, isBase: true)
-        currenciesList.insert(baseCurrency)
-        let orderedList = Array(currenciesList).sorted()
-        lastResult = orderedList
-        delegate?.fetch(currencies: orderedList)
+        let currenciesList = currencies.compactMap { CurrencyInfo(from: $0, multiplier: value) }
+        let base = CurrencyInfo(name: currency.rawValue, value: value)
+        delegate?.fetch(currencies: currenciesList, base: base)
     }
 
     func handle(error:Error) {

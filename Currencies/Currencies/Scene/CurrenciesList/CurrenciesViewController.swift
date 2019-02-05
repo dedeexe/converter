@@ -40,8 +40,8 @@ class CurrenciesViewController: BaseViewController<CurrenciesListUIView> {
 }
 
 extension CurrenciesViewController : CurrenciesOutputInteractor {
-    func fetch(currencies: [CurrencyInfo]) {
-        contentView.update(currencies: currencies)
+    func fetch(currencies: [CurrencyInfo], base:CurrencyInfo) {
+        contentView.update(currencies: currencies, base: base)
     }
     
     func handle(error: Error) {
