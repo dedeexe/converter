@@ -14,6 +14,7 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
         didSet { service.currency = currency }
     }
     
+    private var isMonitoring : Bool = false
     private var value : Double = 1.0
     private let service : CurrencyService
     private var timer : Timer?
@@ -27,7 +28,8 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
     }
     
     func start() {
-        guard timer == nil else { return }
+        guard timer == nil && !isMonitoring else { return }
+        isMonitoring = true
         scheduleRequest()
     }
     
@@ -38,6 +40,7 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
     }
     
     func stop() {
+        isMonitoring = false
         timer?.invalidate()
         timer = nil
     }
@@ -58,6 +61,7 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
     }
     
     func getCurrencies() {
+        guard isMonitoring else { return }
         service.getCurrencies { [weak self] result in
             switch result {
             case .success(_, let currencies):

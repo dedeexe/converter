@@ -10,6 +10,8 @@ import UIKit
 
 protocol CurrencyViewDelegate : class {
     func currencyView(view:CurrencyView, didUpdate value:String)
+    func currencyViewDidBeginEditting(view:CurrencyView)
+    func currencyViewEndBeginEditting(view:CurrencyView)
 }
 
 protocol CurrencyViewDataSource {
@@ -62,4 +64,13 @@ extension CurrencyView : UITextFieldDelegate {
         delegate?.currencyView(view: self, didUpdate: newString)
         return true
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        delegate?.currencyViewDidBeginEditting(view: self)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        delegate?.currencyViewEndBeginEditting(view: self)
+    }
+    
 }

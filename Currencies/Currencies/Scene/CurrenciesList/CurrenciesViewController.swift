@@ -50,6 +50,14 @@ extension CurrenciesViewController : CurrenciesOutputInteractor {
 }
 
 extension CurrenciesViewController : CurrenciesListUIViewDelegate {
+    func currencyViewDidBeginEditting(view: CurrencyView) {
+        interactor.stop()
+    }
+    
+    func currencyViewEndBeginEditting(view: CurrencyView) {
+        interactor.start()
+    }
+    
     func tableHandler(_ handler: CurrencyTableHandler, didSelect currency: CurrencyInfo) {
         guard let currencyType = Currency(rawValue: currency.name) else { return }
         let currencyValue = currency.convertedValue
