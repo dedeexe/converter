@@ -24,7 +24,6 @@ class CurrenciesViewController: BaseViewController<CurrenciesListUIView> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        interactor.getCurrencies()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,7 +51,7 @@ extension CurrenciesViewController : CurrenciesOutputInteractor {
 extension CurrenciesViewController : CurrenciesListUIViewDelegate {
     func tableHandler(_ handler: CurrencyTableHandler, didSelect currency: CurrencyInfo) {
         guard let currencyType = Currency(rawValue: currency.name) else { return }
-        let currencyValue = currency.value
+        let currencyValue = currency.convertedValue
         interactor.update(value: currencyValue, for: currencyType)
     }
     

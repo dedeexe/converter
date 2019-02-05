@@ -15,7 +15,6 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
     }
     
     private var value : Double = 1.0
-    
     private let service : CurrencyService
     private var timer : Timer?
     
@@ -29,7 +28,11 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
     
     func start() {
         guard timer == nil else { return }
-        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
+        scheduleRequest()
+    }
+    
+    func scheduleRequest() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             self?.getCurrencies()
         }
     }

@@ -60,7 +60,8 @@ class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.tableHandler(self, didSelect: currencies[indexPath.row])
+        let selectedCurrency = currencies[indexPath.row]
+        delegate?.tableHandler(self, didSelect: selectedCurrency)
     }
-
+    
 }

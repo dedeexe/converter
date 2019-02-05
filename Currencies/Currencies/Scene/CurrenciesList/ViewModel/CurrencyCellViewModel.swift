@@ -10,7 +10,12 @@ import UIKit
 
 struct CurrencyViewViewModel : CurrencyViewDataSource {
     var name: String { return currency.name }
-    var description: String { return "----------" }
+    
+    var description: String {
+        guard let type = Currency(rawValue: currency.name) else { return "Unknown" }
+        return type.description
+    }
+    
     var image: UIImage? { return nil }
     
     var value: String {
