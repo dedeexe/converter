@@ -27,10 +27,17 @@ struct CurrencyServiceEndpoint : Endpoint {
 
 class CurrencyService {
     
-    var currency : Currency = .EUR
-        
+    private var currency : Currency
+    private var value : Double
+    
     init() {
         currency = .EUR
+        value = 1.0
+    }
+    
+    func set(value:Double, to currency:Currency) {
+        self.value = value
+        self.currency = currency
     }
     
     func getCurrencies(then completion: @escaping (RequestResult<[CurrencyInfo]>) -> Void) {

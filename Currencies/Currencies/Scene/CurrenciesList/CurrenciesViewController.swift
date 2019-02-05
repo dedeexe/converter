@@ -8,10 +8,14 @@
 
 import UIKit
 
-class CurrenciesViewController: BaseViewController<CurrenciesListUIView> {
-    
+class CurrenciesViewController: BaseViewController<CurrenciesListUIView>, CurrenciesOutputInteractor, CurrenciesListUIViewDelegate {
+
     private(set) var currencyType : Currency = .EUR
     private(set) var interactor : CurrenciesInputInteractor
+    private(set) var currencies : [CurrencyInfo] = []
+    private(set) var baseValue : Double = 1.0
+    
+    override var canBecomeFirstResponder: Bool { return true }
     
     init(view:CurrenciesListUIView, interactor:CurrenciesInputInteractor) {
         self.interactor = interactor
@@ -37,32 +41,44 @@ class CurrenciesViewController: BaseViewController<CurrenciesListUIView> {
         interactor.stop()
     }
 
-}
-
-extension CurrenciesViewController : CurrenciesOutputInteractor {
+    // --------------------------------------------------------
+    // MARK: - Interactor Output
+    // --------------------------------------------------------
+    
     func fetch(currencies: [CurrencyInfo], base:CurrencyInfo) {
-        contentView.update(currencies: currencies, base: base)
+        self.currencies = currencies
+        self.contentView.update(currencies: currencies, base: base)
     }
     
     func handle(error: Error) {
         print("Error: \(error.localizedDescription)")
     }
-}
 
-extension CurrenciesViewController : CurrenciesListUIViewDelegate {
+    // --------------------------------------------------------
+    // MARK: - CurrenciesListUIView Delegate
+    // --------------------------------------------------------
+
     func currencyViewDidBeginEditting(view: CurrencyView) {
         interactor.stop()
     }
     
     func currencyViewEndBeginEditting(view: CurrencyView) {
+        interactor.update(value: baseValue, for: currencyType)
         interactor.start()
     }
     
     func tableHandler(_ handler: CurrencyTableHandler, didSelect currency: CurrencyInfo) {
         guard let currencyType = Currency(rawValue: currency.name) else { return }
+        
         let currencyValue = currency.convertedValue
         self.currencyType = currencyType
+        self.baseValue = currency.convertedValue
+        
         interactor.update(value: currencyValue, for: self.currencyType)
+    }
+    
+    func tableHandlerDidEndEditing(_ handler: CurrencyTableHandler) {
+        self.becomeFirstResponder()
     }
     
     func currencyView(view: CurrencyView, didUpdate value: String) {
@@ -71,7 +87,15 @@ extension CurrenciesViewController : CurrenciesListUIViewDelegate {
         format.numberStyle = .decimal
         
         guard let number : NSNumber = format.number(from: value) else { return }
-        let doubleValue = number.doubleValue
-        interactor.update(value: doubleValue, for: self.currencyType)
+        baseValue = number.doubleValue
+    }
+    
+    // --------------------------------------------------------
+    // MARK: - Helpers
+    // --------------------------------------------------------
+    
+    func replaceBaseCurrency(to currency:CurrencyInfo) {
+        
     }
 }
+

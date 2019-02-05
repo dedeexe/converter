@@ -12,7 +12,7 @@ struct CurrencyInfo {
     
     let value : Double
     let name : String
-    let multiplier : Double
+    var multiplier : Double
     
     init(name:String, value:Double, multiplier:Double = 1.0) {
         self.value = value
@@ -41,5 +41,9 @@ struct CurrencyInfo {
 extension CurrencyInfo : Equatable {
     static func == (lhs:CurrencyInfo, rhs:CurrencyInfo) -> Bool {
         return lhs.name == rhs.name
+    }
+    
+    static func != (lhs:CurrencyInfo, rhs:CurrencyInfo) -> Bool {
+        return lhs.name != rhs.name
     }
 }

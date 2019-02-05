@@ -10,6 +10,7 @@ import UIKit
 
 protocol CurrencyTableHandlerDelegate : CurrencyCellDelegate {
     func tableHandler(_ handler:CurrencyTableHandler, didSelect currency:CurrencyInfo)
+    func tableHandlerDidEndEditing(_ handler:CurrencyTableHandler)
 }
 
 class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegate {
@@ -78,6 +79,10 @@ class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCurrency = currencies[indexPath.row]
         delegate?.tableHandler(self, didSelect: selectedCurrency)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        delegate?.tableHandlerDidEndEditing(self)
     }
     
 }

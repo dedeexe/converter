@@ -70,10 +70,8 @@ enum Currency : String, CaseIterable {
     }
     
     var image : UIImage? {
-        let imageName = self.rawValue.lowercased()
-        let startIndex = imageName.startIndex
-        let endIndex = imageName.index(startIndex, offsetBy: 2)
-        let name = String(imageName[startIndex..<endIndex])
+        let imageName = self.rawValue.uppercased()
+        let name = String(imageName)
         return UIImage(named:name)
     }
 }
