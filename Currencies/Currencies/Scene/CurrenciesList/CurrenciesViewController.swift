@@ -10,6 +10,7 @@ import UIKit
 
 class CurrenciesViewController: BaseViewController<CurrenciesListUIView> {
     
+    private(set) var currencyType : Currency = .EUR
     private(set) var interactor : CurrenciesInputInteractor
     
     init(view:CurrenciesListUIView, interactor:CurrenciesInputInteractor) {
@@ -52,10 +53,17 @@ extension CurrenciesViewController : CurrenciesListUIViewDelegate {
     func tableHandler(_ handler: CurrencyTableHandler, didSelect currency: CurrencyInfo) {
         guard let currencyType = Currency(rawValue: currency.name) else { return }
         let currencyValue = currency.convertedValue
-        interactor.update(value: currencyValue, for: currencyType)
+        self.currencyType = currencyType
+        interactor.update(value: currencyValue, for: self.currencyType)
     }
     
     func currencyView(view: CurrencyView, didUpdate value: String) {
+        let format = NumberFormatter()
+        format.locale = Locale.current
+        format.numberStyle = .decimal
         
+        guard let number : NSNumber = format.number(from: value) else { return }
+        let doubleValue = number.doubleValue
+        interactor.update(value: doubleValue, for: self.currencyType)
     }
 }

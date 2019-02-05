@@ -16,7 +16,10 @@ struct CurrencyViewViewModel : CurrencyViewDataSource {
         return type.description
     }
     
-    var image: UIImage? { return nil }
+    var image: UIImage? {
+        guard let type = Currency(rawValue: currency.name) else { return nil }
+        return type.image
+    }
     
     var value: String {
         let formater = NumberFormatter()

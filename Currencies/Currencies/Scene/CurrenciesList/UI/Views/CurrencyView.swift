@@ -32,7 +32,10 @@ class CurrencyView: UIView {
     }
     
     private func setup() {
+        valueTextField.textAlignment = .right
         valueTextField.keyboardType = .decimalPad
+        valueTextField.delegate = self
+        
         countryImageView.layer.cornerRadius = countryImageView.frame.width / 2
         countryImageView.layer.masksToBounds = true
     }
@@ -51,4 +54,12 @@ class CurrencyView: UIView {
         valueTextField.text = nil
     }
     
+}
+
+extension CurrencyView : UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let newString = ((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)
+        delegate?.currencyView(view: self, didUpdate: newString)
+        return true
+    }
 }

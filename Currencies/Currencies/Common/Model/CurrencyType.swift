@@ -6,7 +6,7 @@
 //  Copyright © 2019 dede.exe. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum Currency : String, CaseIterable {
     
@@ -63,9 +63,16 @@ enum Currency : String, CaseIterable {
             Currency.TRY : "Turkish lira",
             Currency.USD : "United States dollar",
             Currency.ZAR : "South African rand",
-            Currency.EUR : "Euro"
         ]
         
         return values[self] ?? "Unknown"
+    }
+    
+    var image : UIImage? {
+        let imageName = self.rawValue.lowercased()
+        let startIndex = imageName.startIndex
+        let endIndex = imageName.index(startIndex, offsetBy: 2)
+        let name = String(imageName[startIndex..<endIndex])
+        return UIImage(named:name)
     }
 }

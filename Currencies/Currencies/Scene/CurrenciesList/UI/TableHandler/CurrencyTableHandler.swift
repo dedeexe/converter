@@ -28,6 +28,7 @@ class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegat
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        self.tableView.separatorStyle = .none
     }
     
     private func update() {
