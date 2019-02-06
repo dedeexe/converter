@@ -30,16 +30,16 @@
                             <rect key="frame" x="66" y="0.0" width="386" height="103"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YfT-f2-A6e">
-                                    <rect key="frame" x="0.0" y="29.5" width="290" height="44"/>
+                                    <rect key="frame" x="0.0" y="29.5" width="360" height="44"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Cv-ZR-8NZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="290" height="23"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="360" height="23"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGe-Od-8NO">
-                                            <rect key="frame" x="0.0" y="27" width="290" height="17"/>
+                                            <rect key="frame" x="0.0" y="27" width="360" height="17"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
@@ -56,18 +56,18 @@
                                         <constraint firstAttribute="trailing" secondItem="2Cv-ZR-8NZ" secondAttribute="trailing" id="qzZ-KP-uYk"/>
                                     </constraints>
                                 </view>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7cn-su-f30">
-                                    <rect key="frame" x="306" y="34" width="80" height="35"/>
+                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7cn-su-f30">
+                                    <rect key="frame" x="376" y="34" width="10" height="35"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="35" id="obS-kY-KnR"/>
-                                        <constraint firstAttribute="width" constant="80" id="wQs-EQ-plc"/>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="wQs-EQ-plc"/>
                                     </constraints>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B9z-aK-Eig">
-                                    <rect key="frame" x="306" y="69" width="80" height="2"/>
+                                    <rect key="frame" x="376" y="69" width="10" height="2"/>
                                     <color key="backgroundColor" white="0.79893973210000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="2" id="zeP-Qa-wVL"/>
@@ -114,6 +114,7 @@
             <connections>
                 <outlet property="countryImageView" destination="Y1a-Wy-gJw" id="1na-lQ-aA4"/>
                 <outlet property="descriptionLabel" destination="EGe-Od-8NO" id="h4v-Mi-Yzu"/>
+                <outlet property="markerView" destination="B9z-aK-Eig" id="8jL-Km-wi0"/>
                 <outlet property="nameLabel" destination="2Cv-ZR-8NZ" id="Ibt-kC-Y3x"/>
                 <outlet property="valueTextField" destination="7cn-su-f30" id="u4D-we-nW6"/>
             </connections>

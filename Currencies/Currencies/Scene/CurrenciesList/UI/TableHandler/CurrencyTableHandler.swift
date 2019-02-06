@@ -77,6 +77,8 @@ class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegat
     //MARK: - TableView Delegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard case Sections.currencies.rawValue = indexPath.section else { return }
+        
         let selectedCurrency = currencies[indexPath.row]
         delegate?.tableHandler(self, didSelect: selectedCurrency)
     }

@@ -27,6 +27,10 @@ class CurrencyView: UIView {
     @IBOutlet weak var descriptionLabel : UILabel!
     @IBOutlet weak var countryImageView : UIImageView!
     @IBOutlet weak var valueTextField : UITextField!
+    @IBOutlet weak var markerView : UIView!
+    
+    let selectedColor       = UIColor.blue
+    let deselectedColor     = UIColor.lightGray
     
     weak var delegate : CurrencyViewDelegate?    
     override func awakeFromNib() {
@@ -40,6 +44,9 @@ class CurrencyView: UIView {
         
         countryImageView.layer.cornerRadius = countryImageView.frame.width / 2
         countryImageView.layer.masksToBounds = true
+        
+        valueTextField.addTarget(self, action: #selector(textFieldDidchange), for: .valueChanged)
+        markerView.backgroundColor = deselectedColor
     }
     
     func update(dataSource: CurrencyViewDataSource) {
@@ -56,6 +63,10 @@ class CurrencyView: UIView {
         valueTextField.text = nil
     }
     
+    @objc func textFieldDidchange(sender:UITextField) {
+        sender.invalidateIntrinsicContentSize()
+    }
+    
 }
 
 extension CurrencyView : UITextFieldDelegate {
@@ -66,11 +77,12 @@ extension CurrencyView : UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        markerView.backgroundColor = selectedColor
         delegate?.currencyViewDidBeginEditting(view: self)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        markerView.backgroundColor = deselectedColor
         delegate?.currencyViewEndBeginEditting(view: self)
     }
-    
 }
