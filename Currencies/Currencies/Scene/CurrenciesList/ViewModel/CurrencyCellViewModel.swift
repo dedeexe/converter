@@ -25,6 +25,8 @@ struct CurrencyViewViewModel : CurrencyViewDataSource {
         let formater = NumberFormatter()
         formater.locale = Locale.current
         formater.numberStyle = .decimal
+        formater.maximumFractionDigits = 2
+        formater.minimumFractionDigits = 2
         return formater.string(from: NSNumber(value: currency.convertedValue)) ?? ""
     }
     
@@ -33,5 +35,4 @@ struct CurrencyViewViewModel : CurrencyViewDataSource {
     init(model : CurrencyInfo) {
         self.currency = model
     }
-    
 }
