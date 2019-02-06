@@ -28,8 +28,10 @@ class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegat
     private var baseCurrency : CurrencyInfo? = nil
     
     func update(base:CurrencyInfo, currencies:[CurrencyInfo]) {
-        self.currencies = currencies
         self.baseCurrency = base
+        //self.currencies = currencies
+        self.refreshCurrencies(with: currencies)
+        
         self.tableView.reloadData()
     }
 
@@ -76,13 +78,27 @@ class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegat
         
         self.baseCurrency = currency
         self.currencies = [oldBaseCurrency] + currencies
-        
-        let baseIndexPath = IndexPath(row: 0, section: Sections.base.rawValue)
-        let firstCurrencyIndexPath = IndexPath(row: 0, section: Sections.currencies.rawValue)
+  
+        let visibleIndexes = tableView.indexPathsForVisibleRows ?? []
         
         tableView.beginUpdates()
-        tableView.reloadRows(at: [indexPath, baseIndexPath, firstCurrencyIndexPath], with: .top)
+        tableView.reloadRows(at: visibleIndexes, with: .automatic)
         tableView.endUpdates()
+    }
+    
+    private func refreshCurrencies(with currencies:[CurrencyInfo]) {
+        let selfCurrencies = self.currencies
+        var newList = selfCurrencies
+        
+        for currency in currencies {
+            if let index = selfCurrencies.firstIndex(of: currency) {
+                newList[index] = currency
+                continue
+            }
+            newList.append(currency)
+        }
+        
+        self.currencies = newList.filter { $0 != (self.baseCurrency ?? CurrencyInfo(name: "UNKNOWN", value: 0.0)) }
     }
     
     // --------------------------------------------------------
