@@ -27,20 +27,23 @@ struct CurrencyServiceEndpoint : Endpoint {
 
 class CurrencyService {
     
-    private var currency : Currency
-    private var value : Double
+    typealias ResultType = (Currency, [CurrencyInfo])
     
-    init() {
-        currency = .EUR
-        value = 1.0
-    }
+    //private var currency : Currency
+    //private var value : Double
     
-    func set(value:Double, to currency:Currency) {
-        self.value = value
-        self.currency = currency
-    }
+//    init() {
+////        currency = .EUR
+//        //value = 1.0
+//    }
     
-    func getCurrencies(then completion: @escaping (RequestResult<[CurrencyInfo]>) -> Void) {
+//    //func set(value:Double, to currency:Currency) {
+//    func set(currency:Currency) {
+//        //self.value = value
+//        self.currency = currency
+//    }
+    
+    func getCurrencies(for currency:Currency, then completion: @escaping (RequestResult<ResultType>) -> Void) {
         
         let endpoint = CurrencyServiceEndpoint(base: currency)
         
@@ -49,10 +52,11 @@ class CurrencyService {
             switch result {
             case .success(let statusCode, let values):
                 let convertedResult = self?.convertCurrency(jsonString: values) ?? []
-                completion(RequestResult<[CurrencyInfo]>.success(statusCode, convertedResult))
+                let result : ResultType = (currency, convertedResult)
+                completion(RequestResult<ResultType>.success(statusCode, result))
                 
             case .fail(let statusCode, let err):
-                completion(RequestResult<[CurrencyInfo]>.fail(statusCode, err))
+                completion(RequestResult<ResultType>.fail(statusCode, err))
             }
             
         }

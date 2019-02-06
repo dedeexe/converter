@@ -30,7 +30,12 @@ class CurrenciesListUIView : UIView {
     
     func update(currencies:[CurrencyInfo], base:CurrencyInfo, activeTextField:Bool) {
         DispatchQueue.main.async { [weak self] in
-            self?.tableHandler?.update(base: base, currencies: currencies)
+            if !activeTextField {
+                self?.tableHandler?.update(base: base, currencies: currencies)
+                return
+            }
+            
+            self?.tableHandler?.updateValues(currencies: currencies)
         }
     }
     

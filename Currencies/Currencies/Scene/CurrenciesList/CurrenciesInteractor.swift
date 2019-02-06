@@ -12,13 +12,13 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
     
     private var currency : Currency = .EUR
     private var isMonitoring : Bool = false
-    private var value : Double = 1.0
+    //private var value : Double = 1.0
     private let service : CurrencyService
     private var timer : Timer?
     
     weak var delegate : CurrenciesOutputInteractor?
     
-    private var lastResult : [CurrencyInfo] = []
+    //private var lastResult : [CurrencyInfo] = []
     
     init(service:CurrencyService? = nil) {
         self.service = service ?? CurrencyService()
@@ -42,55 +42,50 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
         timer = nil
     }
     
-    func update(value: Double, for currency: Currency) {
+    func update(currency: Currency) {
         
-        stop()
-        if self.currency != currency {
-            let oldBaseCurrency = self.currency
-            let oldBaseValue = self.value
-            
-            let newCurrencyInfo = createCurrency(type: oldBaseCurrency, value: oldBaseValue)
-            let oldBaseCurrencyInfo = createCurrency(type: currency, value: value)
-            
-            let resultList = replace(in: self.lastResult, oldCurrency: oldBaseCurrencyInfo, forNew: newCurrencyInfo)
-            self.lastResult = resultList
-            
-            self.currency = currency
-            self.value = value
-            response(currencies: resultList)
-
-            return
-        }
+//        if self.currency != currency {
+//            let oldBaseCurrency = self.currency
+//            let oldBaseValue = self.value
+//
+//            let newCurrencyInfo = createCurrency(type: oldBaseCurrency, value: oldBaseValue)
+//            let oldBaseCurrencyInfo = createCurrency(type: currency, value: value)
+//
+//            let resultList = replace(in: self.lastResult, oldCurrency: oldBaseCurrencyInfo, forNew: newCurrencyInfo)
+//            self.lastResult = resultList
+//
+//            self.currency = currency
+//            self.value = value
+//            response(currencies: resultList)
+//
+//            return
+//        }
         
         self.currency = currency
-        self.value = value
-        response(currencies: lastResult)
-        start()
+        //self.value = value
+        //response(currencies: lastResult)
         
     }
     
     func getCurrencies() {
         guard isMonitoring else { return }
-        self.service.set(value: self.value, to: self.currency)
         
-        service.getCurrencies { [weak self] result in
+        service.getCurrencies(for: currency) { [weak self] result in
             guard let value = self?.isMonitoring, value == true else { return }
             
             switch result {
-            case .success(_, let currencies):
-                self?.response(currencies: currencies)
+            case .success(_, let resultValue):
+                let (base, currencies) = resultValue
+                self?.response(currencies: currencies, for: base)
             case .fail(_, let err):
                 self?.handle(error: err)
             }
         }
     }
     
-    func response(currencies:[CurrencyInfo]) {
-        let currenciesList = currencies.compactMap { CurrencyInfo(from: $0, multiplier: value) }
-        let base = CurrencyInfo(name: currency.rawValue, value: value)
-        lastResult = currenciesList
-        delegate?.fetch(currencies: currenciesList, base: base)
-        start()
+    func response(currencies:[CurrencyInfo], for currency:Currency) {
+        let currenciesList = currencies.compactMap { CurrencyInfo(from: $0) }
+        delegate?.fetch(currencies: currenciesList, base: currency)
     }
 
     func handle(error:Error) {

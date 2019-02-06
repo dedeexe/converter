@@ -32,6 +32,21 @@ class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegat
         self.baseCurrency = base
         self.tableView.reloadData()
     }
+
+    func updateValues(currencies:[CurrencyInfo]) {
+        self.currencies = currencies
+        
+        let visibleCells = tableView.visibleCells
+        
+        for cell in visibleCells {
+            if let indexPath = tableView.indexPath(for: cell),
+                let currencyCell = cell as? CurrencyCell,
+                indexPath.section != Sections.base.rawValue
+            {
+                decorateCell(cell: currencyCell, at: indexPath)
+            }
+        }
+    }
     
     init(tableView : UITableView) {
         self.tableView = tableView
@@ -44,7 +59,18 @@ class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegat
         self.tableView.separatorStyle = .none
     }
     
-    //MARK: - TableView DataSource
+    // --------------------------------------------------------
+    // MARK: - Helper
+    // --------------------------------------------------------
+    
+    func decorateCell(cell:UITableViewCell, at indexPath:IndexPath) {
+        let currency = currencies[indexPath.row]
+        (cell as? CurrencyCell)?.update(currency: currency)
+    }
+    
+    // --------------------------------------------------------
+    // MARK: - TableView DataSource
+    // --------------------------------------------------------
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return Sections.total.rawValue
@@ -68,9 +94,8 @@ class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegat
         
         if case Sections.base.rawValue = indexPath.section, let base = baseCurrency {
             cell.update(currency: base)
-            cell.setSelected(true, animated: false)
         } else if case Sections.currencies.rawValue = indexPath.section {
-            cell.update(currency: currencies[indexPath.row])
+            decorateCell(cell: cell, at: indexPath)
         }
         
         cell.selectionStyle = .none
@@ -78,8 +103,10 @@ class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegat
         return cell
     }
     
-    //MARK: - TableView Delegate
-    
+    // --------------------------------------------------------
+    // MARK: - TableView Delegate
+    // --------------------------------------------------------
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard case Sections.currencies.rawValue = indexPath.section else { return }
         

@@ -11,9 +11,13 @@ import UIKit
 class CurrenciesViewController: BaseViewController<CurrenciesListUIView>, CurrenciesOutputInteractor, CurrenciesListUIViewDelegate {
 
     private(set) var currencyType : Currency = .EUR
+    private(set) var currencyValue : Double = 1.0
     private(set) var interactor : CurrenciesInputInteractor
     private(set) var currencies : [CurrencyInfo] = []
-    private(set) var baseValue : Double = 1.0
+    
+    var currencyInfo : CurrencyInfo {
+        return CurrencyInfo(name: currencyType.rawValue, value: currencyValue)
+    }
     
     override var canBecomeFirstResponder: Bool { return true }
     
@@ -44,10 +48,10 @@ class CurrenciesViewController: BaseViewController<CurrenciesListUIView>, Curren
     // --------------------------------------------------------
     // MARK: - Interactor Output
     // --------------------------------------------------------
-    
-    func fetch(currencies: [CurrencyInfo], base:CurrencyInfo) {
+    func fetch(currencies: [CurrencyInfo], base: Currency) {
         self.currencies = currencies
-        self.contentView.update(currencies: currencies, base: base, activeTextField: true)
+        let multipliedCurrencies = currencies.compactMap{ CurrencyInfo(from: $0, multiplier: self.currencyValue) }
+        self.contentView.update(currencies: multipliedCurrencies, base: self.currencyInfo, activeTextField: false)
     }
     
     func handle(error: Error) {
@@ -63,18 +67,17 @@ class CurrenciesViewController: BaseViewController<CurrenciesListUIView>, Curren
     }
     
     func currencyViewEndBeginEditting(view: CurrencyView) {
-        interactor.update(value: baseValue, for: currencyType)
         interactor.start()
     }
     
     func tableHandler(_ handler: CurrencyTableHandler, didSelect currency: CurrencyInfo) {
         guard let currencyType = Currency(rawValue: currency.name) else { return }
         
-        let currencyValue = currency.convertedValue
+        let newCurrencyValue = currency.convertedValue
         self.currencyType = currencyType
-        self.baseValue = currency.convertedValue
+        self.currencyValue = newCurrencyValue
         
-        interactor.update(value: currencyValue, for: self.currencyType)
+        interactor.update(currency: self.currencyType)
     }
     
     func tableHandlerDidEndEditing(_ handler: CurrencyTableHandler) {
@@ -87,9 +90,10 @@ class CurrenciesViewController: BaseViewController<CurrenciesListUIView>, Curren
         format.numberStyle = .decimal
         
         guard let number : NSNumber = format.number(from: value) else { return }
-        baseValue = number.doubleValue
+        currencyValue = number.doubleValue
         
-        interactor.update(value: baseValue, for: currencyType)
+        let multipliedCurrencies = currencies.compactMap{ CurrencyInfo(from: $0, multiplier: self.currencyValue) }
+        self.contentView.update(currencies: multipliedCurrencies, base: self.currencyInfo, activeTextField: true)
     }
 }
 
