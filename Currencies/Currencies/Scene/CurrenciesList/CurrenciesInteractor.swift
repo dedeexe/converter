@@ -12,14 +12,11 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
     
     private var currency : Currency = .EUR
     private var isMonitoring : Bool = false
-    //private var value : Double = 1.0
     private let service : CurrencyService
     private var timer : Timer?
     
     weak var delegate : CurrenciesOutputInteractor?
-    
-    //private var lastResult : [CurrencyInfo] = []
-    
+        
     init(service:CurrencyService? = nil) {
         self.service = service ?? CurrencyService()
     }
@@ -43,28 +40,7 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
     }
     
     func update(currency: Currency) {
-        
-//        if self.currency != currency {
-//            let oldBaseCurrency = self.currency
-//            let oldBaseValue = self.value
-//
-//            let newCurrencyInfo = createCurrency(type: oldBaseCurrency, value: oldBaseValue)
-//            let oldBaseCurrencyInfo = createCurrency(type: currency, value: value)
-//
-//            let resultList = replace(in: self.lastResult, oldCurrency: oldBaseCurrencyInfo, forNew: newCurrencyInfo)
-//            self.lastResult = resultList
-//
-//            self.currency = currency
-//            self.value = value
-//            response(currencies: resultList)
-//
-//            return
-//        }
-        
         self.currency = currency
-        //self.value = value
-        //response(currencies: lastResult)
-        
     }
     
     func getCurrencies() {

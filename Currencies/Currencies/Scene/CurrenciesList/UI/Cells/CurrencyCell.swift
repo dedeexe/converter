@@ -56,10 +56,9 @@ class CurrencyCell: UITableViewCell, ReusableCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        if selected {
-            responderInTextField()
-        }
     }
 
+    func enableText(_ enabled:Bool) {
+        currencyView.enableText(enabled)
+    }
 }

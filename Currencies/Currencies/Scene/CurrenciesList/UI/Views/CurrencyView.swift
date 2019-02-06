@@ -41,6 +41,10 @@ class CurrencyView: UIView {
         valueTextField.becomeFirstResponder()
     }
     
+    func enableText(_ enabled:Bool) {
+        valueTextField.isEnabled = enabled
+    }
+    
     private func setup() {
         valueTextField.textAlignment = .right
         valueTextField.keyboardType = .decimalPad

@@ -63,9 +63,26 @@ class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegat
     // MARK: - Helper
     // --------------------------------------------------------
     
-    func decorateCell(cell:UITableViewCell, at indexPath:IndexPath) {
+    private func decorateCell(cell:UITableViewCell, at indexPath:IndexPath) {
         let currency = currencies[indexPath.row]
         (cell as? CurrencyCell)?.update(currency: currency)
+    }
+    
+    private func replaceBase(for currency:CurrencyInfo, at indexPath:IndexPath) {
+        guard let oldBaseCurrency = self.baseCurrency else { return }
+        var currencies = self.currencies
+        
+        currencies.remove(at: indexPath.row)
+        
+        self.baseCurrency = currency
+        self.currencies = [oldBaseCurrency] + currencies
+        
+        let baseIndexPath = IndexPath(row: 0, section: Sections.base.rawValue)
+        let firstCurrencyIndexPath = IndexPath(row: 0, section: Sections.currencies.rawValue)
+        
+        tableView.beginUpdates()
+        tableView.reloadRows(at: [indexPath, baseIndexPath, firstCurrencyIndexPath], with: .top)
+        tableView.endUpdates()
     }
     
     // --------------------------------------------------------
@@ -94,8 +111,10 @@ class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegat
         
         if case Sections.base.rawValue = indexPath.section, let base = baseCurrency {
             cell.update(currency: base)
+            cell.enableText(true)
         } else if case Sections.currencies.rawValue = indexPath.section {
             decorateCell(cell: cell, at: indexPath)
+            cell.enableText(false)
         }
         
         cell.selectionStyle = .none
@@ -111,6 +130,7 @@ class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegat
         guard case Sections.currencies.rawValue = indexPath.section else { return }
         
         let selectedCurrency = currencies[indexPath.row]
+        replaceBase(for: selectedCurrency, at: indexPath)
         delegate?.tableHandler(self, didSelect: selectedCurrency)
     }
     
