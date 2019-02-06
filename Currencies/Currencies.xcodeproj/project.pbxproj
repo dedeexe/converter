@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		91F21E402202809B000B72B8 /* UIVIew+Instanciation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F21E3F2202809B000B72B8 /* UIVIew+Instanciation.swift */; };
-		91F21E43220280EB000B72B8 /* ImageRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F21E42220280EB000B72B8 /* ImageRequester.swift */; };
 		91F21E4722028350000B72B8 /* TableView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F21E4622028350000B72B8 /* TableView+Reusable.swift */; };
 		91F21E5422028EE8000B72B8 /* CurrencyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F21E5322028EE8000B72B8 /* CurrencyService.swift */; };
 		91F21E582203C719000B72B8 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F21E572203C719000B72B8 /* WebService.swift */; };
@@ -51,7 +50,6 @@
 
 /* Begin PBXFileReference section */
 		91F21E3F2202809B000B72B8 /* UIVIew+Instanciation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIVIew+Instanciation.swift"; sourceTree = "<group>"; };
-		91F21E42220280EB000B72B8 /* ImageRequester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRequester.swift; sourceTree = "<group>"; };
 		91F21E4622028350000B72B8 /* TableView+Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TableView+Reusable.swift"; sourceTree = "<group>"; };
 		91F21E5322028EE8000B72B8 /* CurrencyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyService.swift; sourceTree = "<group>"; };
 		91F21E572203C719000B72B8 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
@@ -116,7 +114,6 @@
 			isa = PBXGroup;
 			children = (
 				91F21E4622028350000B72B8 /* TableView+Reusable.swift */,
-				91F21E42220280EB000B72B8 /* ImageRequester.swift */,
 				A88BEE78220878650081E55F /* Serializable.swift */,
 			);
 			path = Protocols;
@@ -396,7 +393,6 @@
 				91F21E652203CB77000B72B8 /* Config.swift in Sources */,
 				91F21E622203C8E8000B72B8 /* Dictionary+Encoder.swift in Sources */,
 				A88BEE76220877860081E55F /* CurrenciesInterfaces.swift in Sources */,
-				91F21E43220280EB000B72B8 /* ImageRequester.swift in Sources */,
 				91F21E5E2203C78F000B72B8 /* RequestMethod.swift in Sources */,
 				A8C6F58F22007FF100791E3C /* CurrenciesViewController.swift in Sources */,
 				91F21E5A2203C74F000B72B8 /* EndPoint.swift in Sources */,

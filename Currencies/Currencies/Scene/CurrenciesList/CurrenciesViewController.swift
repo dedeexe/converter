@@ -47,7 +47,7 @@ class CurrenciesViewController: BaseViewController<CurrenciesListUIView>, Curren
     
     func fetch(currencies: [CurrencyInfo], base:CurrencyInfo) {
         self.currencies = currencies
-        self.contentView.update(currencies: currencies, base: base)
+        self.contentView.update(currencies: currencies, base: base, activeTextField: true)
     }
     
     func handle(error: Error) {
@@ -88,14 +88,8 @@ class CurrenciesViewController: BaseViewController<CurrenciesListUIView>, Curren
         
         guard let number : NSNumber = format.number(from: value) else { return }
         baseValue = number.doubleValue
-    }
-    
-    // --------------------------------------------------------
-    // MARK: - Helpers
-    // --------------------------------------------------------
-    
-    func replaceBaseCurrency(to currency:CurrencyInfo) {
         
+        interactor.update(value: baseValue, for: currencyType)
     }
 }
 

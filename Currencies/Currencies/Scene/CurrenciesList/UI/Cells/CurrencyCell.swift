@@ -33,6 +33,10 @@ class CurrencyCell: UITableViewCell, ReusableCell {
         build()
     }
     
+    func responderInTextField() {
+        currencyView.responderInTextField()
+    }
+    
     func build() {
         currencyView = UIView.instantiateFromNib(named: "CurrencyView")
         currencyView.delegate = self.delegate
@@ -52,6 +56,10 @@ class CurrencyCell: UITableViewCell, ReusableCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        
+        if selected {
+            responderInTextField()
+        }
     }
 
 }

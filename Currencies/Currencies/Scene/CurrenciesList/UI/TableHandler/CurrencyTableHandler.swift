@@ -21,6 +21,7 @@ class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegat
         case total
     }
 
+    private var firstCellSelected : Bool = false
     unowned let tableView : UITableView
     weak var delegate : CurrencyTableHandlerDelegate?
     private var currencies: [CurrencyInfo] = []
@@ -67,9 +68,12 @@ class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegat
         
         if case Sections.base.rawValue = indexPath.section, let base = baseCurrency {
             cell.update(currency: base)
+            cell.setSelected(true, animated: false)
         } else if case Sections.currencies.rawValue = indexPath.section {
             cell.update(currency: currencies[indexPath.row])
         }
+        
+        cell.selectionStyle = .none
         
         return cell
     }
@@ -84,6 +88,7 @@ class CurrencyTableHandler : NSObject, UITableViewDataSource, UITableViewDelegat
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        firstCellSelected = false
         delegate?.tableHandlerDidEndEditing(self)
     }
     
