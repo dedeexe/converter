@@ -19,7 +19,7 @@ struct CurrencyServiceEndpoint : Endpoint {
     
     var headers: [String : String] = [:]
     
-    init(base:Currency) {
+    init(base:CurrencyType) {
         self.base = base.rawValue
     }
     
@@ -27,23 +27,9 @@ struct CurrencyServiceEndpoint : Endpoint {
 
 class CurrencyService {
     
-    typealias ResultType = (Currency, [CurrencyInfo])
+    typealias ResultType = (CurrencyType, [CurrencyInfo])
     
-    //private var currency : Currency
-    //private var value : Double
-    
-//    init() {
-////        currency = .EUR
-//        //value = 1.0
-//    }
-    
-//    //func set(value:Double, to currency:Currency) {
-//    func set(currency:Currency) {
-//        //self.value = value
-//        self.currency = currency
-//    }
-    
-    func getCurrencies(for currency:Currency, then completion: @escaping (RequestResult<ResultType>) -> Void) {
+    func getCurrencies(for currency:CurrencyType, then completion: @escaping (RequestResult<ResultType>) -> Void) {
         
         let endpoint = CurrencyServiceEndpoint(base: currency)
         

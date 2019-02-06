@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum Currency : String, CaseIterable {
+enum CurrencyType : String, CaseIterable {
     
     case AUD
     case BGN, BRL
@@ -30,40 +30,40 @@ enum Currency : String, CaseIterable {
     case ZAR
     
     var description : String {
-        let values : [Currency : String] = [
-            Currency.AUD : "Australian Dollar",
-            Currency.BGN : "Bulgarian lev",
-            Currency.BRL : "Brazilian real",
-            Currency.CAD : "Canadian dollar",
-            Currency.CHF : "Swiss franc",
-            Currency.CNY : "Chinese yuan",
-            Currency.CZK : "Czech koruna",
-            Currency.DKK : "Danish krone",
-            Currency.EUR : "Euro",
-            Currency.GBP : "British pound",
-            Currency.HKD : "Hong Kong dollar",
-            Currency.HRK : "Croatian kuna",
-            Currency.HUF : "Hungarian forint",
-            Currency.IDR : "Indonesian rupiah",
-            Currency.ILS : "Israeli new shekel",
-            Currency.INR : "Indian rupee",
-            Currency.ISK : "Icelandic króna",
-            Currency.JPY : "Japanese yen",
-            Currency.KRW : "South Korean won",
-            Currency.MXN : "Mexican peso",
-            Currency.MYR : "Malaysian ringgit",
-            Currency.NOK : "Norwegian krone",
-            Currency.NZD : "New Zealand dollar",
-            Currency.PHP : "Philippine peso",
-            Currency.PLN : "Polish złoty",
-            Currency.RON : "Romanian leu",
-            Currency.RUB : "Russian ruble",
-            Currency.SEK : "Swedish krona",
-            Currency.SGD : "Singapore dollar",
-            Currency.THB : "Thai baht",
-            Currency.TRY : "Turkish lira",
-            Currency.USD : "United States dollar",
-            Currency.ZAR : "South African rand",
+        let values : [CurrencyType : String] = [
+            CurrencyType.AUD : "Australian Dollar",
+            CurrencyType.BGN : "Bulgarian lev",
+            CurrencyType.BRL : "Brazilian real",
+            CurrencyType.CAD : "Canadian dollar",
+            CurrencyType.CHF : "Swiss franc",
+            CurrencyType.CNY : "Chinese yuan",
+            CurrencyType.CZK : "Czech koruna",
+            CurrencyType.DKK : "Danish krone",
+            CurrencyType.EUR : "Euro",
+            CurrencyType.GBP : "British pound",
+            CurrencyType.HKD : "Hong Kong dollar",
+            CurrencyType.HRK : "Croatian kuna",
+            CurrencyType.HUF : "Hungarian forint",
+            CurrencyType.IDR : "Indonesian rupiah",
+            CurrencyType.ILS : "Israeli new shekel",
+            CurrencyType.INR : "Indian rupee",
+            CurrencyType.ISK : "Icelandic króna",
+            CurrencyType.JPY : "Japanese yen",
+            CurrencyType.KRW : "South Korean won",
+            CurrencyType.MXN : "Mexican peso",
+            CurrencyType.MYR : "Malaysian ringgit",
+            CurrencyType.NOK : "Norwegian krone",
+            CurrencyType.NZD : "New Zealand dollar",
+            CurrencyType.PHP : "Philippine peso",
+            CurrencyType.PLN : "Polish złoty",
+            CurrencyType.RON : "Romanian leu",
+            CurrencyType.RUB : "Russian ruble",
+            CurrencyType.SEK : "Swedish krona",
+            CurrencyType.SGD : "Singapore dollar",
+            CurrencyType.THB : "Thai baht",
+            CurrencyType.TRY : "Turkish lira",
+            CurrencyType.USD : "United States dollar",
+            CurrencyType.ZAR : "South African rand",
         ]
         
         return values[self] ?? "Unknown"

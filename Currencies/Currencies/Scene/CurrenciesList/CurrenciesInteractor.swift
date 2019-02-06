@@ -10,7 +10,7 @@ import Foundation
 
 class CurrenciesInteractor : CurrenciesInputInteractor {
     
-    private var currency : Currency = .EUR
+    private var currency : CurrencyType = .EUR
     private var isMonitoring : Bool = false
     private let service : CurrencyService
     private var timer : Timer?
@@ -39,7 +39,7 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
         timer = nil
     }
     
-    func update(currency: Currency) {
+    func update(currency: CurrencyType) {
         self.currency = currency
     }
     
@@ -59,7 +59,7 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
         }
     }
     
-    func response(currencies:[CurrencyInfo], for currency:Currency) {
+    func response(currencies:[CurrencyInfo], for currency:CurrencyType) {
         let currenciesList = currencies.compactMap { CurrencyInfo(from: $0) }
         delegate?.fetch(currencies: currenciesList, base: currency)
     }
@@ -68,7 +68,7 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
         delegate?.handle(error: error)
     }
     
-    private func createCurrency(type:Currency, value:Double) -> CurrencyInfo {
+    private func createCurrency(type:CurrencyType, value:Double) -> CurrencyInfo {
         let currency = CurrencyInfo(name: type.rawValue, value: value)
         return currency
     }

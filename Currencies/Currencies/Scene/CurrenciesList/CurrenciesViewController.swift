@@ -10,7 +10,7 @@ import UIKit
 
 class CurrenciesViewController: BaseViewController<CurrenciesListUIView>, CurrenciesOutputInteractor, CurrenciesListUIViewDelegate {
 
-    private(set) var currencyType : Currency = .EUR
+    private(set) var currencyType : CurrencyType = .EUR
     private(set) var currencyValue : Double = 1.0
     private(set) var interactor : CurrenciesInputInteractor
     private(set) var currencies : [CurrencyInfo] = []
@@ -48,7 +48,7 @@ class CurrenciesViewController: BaseViewController<CurrenciesListUIView>, Curren
     // --------------------------------------------------------
     // MARK: - Interactor Output
     // --------------------------------------------------------
-    func fetch(currencies: [CurrencyInfo], base: Currency) {
+    func fetch(currencies: [CurrencyInfo], base: CurrencyType) {
         self.currencies = currencies
         let multipliedCurrencies = currencies.compactMap{ CurrencyInfo(from: $0, multiplier: self.currencyValue) }
         self.contentView.update(currencies: multipliedCurrencies, base: self.currencyInfo, activeTextField: false)
@@ -71,7 +71,7 @@ class CurrenciesViewController: BaseViewController<CurrenciesListUIView>, Curren
     }
     
     func tableHandler(_ handler: CurrencyTableHandler, didSelect currency: CurrencyInfo) {
-        guard let currencyType = Currency(rawValue: currency.name) else { return }
+        guard let currencyType = CurrencyType(rawValue: currency.name) else { return }
         
         let newCurrencyValue = currency.convertedValue
         self.currencyType = currencyType
