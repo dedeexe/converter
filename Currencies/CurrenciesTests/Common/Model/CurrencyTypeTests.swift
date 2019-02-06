@@ -20,7 +20,7 @@ class CurrencyTypeTests: XCTestCase {
     }
 
     func testValidImages() {
-        let allCases = Currency.allCases
+        let allCases = CurrencyType.allCases
         
         for currency in allCases where currency.image == nil {
             let name = currency.rawValue
