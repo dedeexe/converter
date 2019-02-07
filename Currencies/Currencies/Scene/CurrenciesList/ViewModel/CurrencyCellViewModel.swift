@@ -12,12 +12,18 @@ struct CurrencyViewViewModel : CurrencyViewDataSource {
     var name: String { return currency.name }
     
     var description: String {
-        guard let type = CurrencyType(rawValue: currency.name) else { return "Unknown" }
+        guard let type = CurrencyType(rawValue: currency.name) else {
+            return "Unknown"
+        }
+        
         return type.description
     }
     
     var image: UIImage? {
-        guard let type = CurrencyType(rawValue: currency.name) else { return nil }
+        guard let type = CurrencyType(rawValue: currency.name) else {
+            return nil
+        }
+        
         return type.image
     }
     
