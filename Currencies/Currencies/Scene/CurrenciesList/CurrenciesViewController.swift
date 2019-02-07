@@ -31,6 +31,10 @@ class CurrenciesViewController: BaseViewController<CurrenciesListUIView>, Curren
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("Deinitialized")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -50,6 +54,7 @@ class CurrenciesViewController: BaseViewController<CurrenciesListUIView>, Curren
     // --------------------------------------------------------
     func fetch(currencies: [CurrencyInfo], base: CurrencyType) {
         self.currencies = currencies
+        self.currencyType = base
         let multipliedCurrencies = currencies.compactMap{ CurrencyInfo(from: $0, multiplier: self.currencyValue) }
         self.contentView.update(currencies: multipliedCurrencies, base: self.currencyInfo, activeTextField: false)
     }
