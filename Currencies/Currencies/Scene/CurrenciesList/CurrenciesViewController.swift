@@ -73,11 +73,14 @@ class CurrenciesViewController: BaseViewController<CurrenciesListUIView>, Curren
     func tableHandler(_ handler: CurrencyTableHandler, didSelect currency: CurrencyInfo) {
         guard let currencyType = CurrencyType(rawValue: currency.name) else { return }
         
+        interactor.stop()
+        
         let newCurrencyValue = currency.convertedValue
         self.currencyType = currencyType
         self.currencyValue = newCurrencyValue
         
         interactor.update(currency: self.currencyType)
+        interactor.start()
     }
     
     func tableHandlerDidEndEditing(_ handler: CurrencyTableHandler) {

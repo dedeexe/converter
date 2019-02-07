@@ -58,10 +58,10 @@ class CurrencyView: UIView {
     }
     
     func update(dataSource: CurrencyViewDataSource) {
-        nameLabel.text = dataSource.name
-        descriptionLabel.text = dataSource.description
-        countryImageView.image = dataSource.image
-        valueTextField.text = dataSource.value
+        nameLabel.text          = dataSource.name
+        descriptionLabel.text   = dataSource.description
+        countryImageView.image  = dataSource.image
+        valueTextField.text     = dataSource.value
     }
     
     func reset() {

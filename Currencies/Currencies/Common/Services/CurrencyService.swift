@@ -19,21 +19,27 @@ struct CurrencyServiceEndpoint : Endpoint {
     
     var headers: [String : String] = [:]
     
-    init(base:CurrencyType) {
-        self.base = base.rawValue
+    init(base:String) {
+        self.base = base
     }
     
 }
 
 class CurrencyService {
     
-    typealias ResultType = (CurrencyType, [CurrencyInfo])
+    typealias ResultType = (String, [CurrencyInfo])
     
-    func getCurrencies(for currency:CurrencyType, then completion: @escaping (RequestResult<ResultType>) -> Void) {
+    let webservice : WebService
+    
+    init(using webservice:WebService = WebService.instance) {
+        self.webservice = webservice
+    }
+    
+    func getCurrencies(for currency:String, then completion: @escaping (RequestResult<ResultType>) -> Void) {
         
         let endpoint = CurrencyServiceEndpoint(base: currency)
         
-        WebService.instance.request(request: endpoint) { [weak self] (result, _ ) in
+        webservice.request(request: endpoint) { [weak self] (result, _ ) in
             
             switch result {
             case .success(let statusCode, let values):
@@ -50,8 +56,13 @@ class CurrencyService {
     }
     
     private func convertCurrency(jsonString:String?) -> [CurrencyInfo] {
-        guard let data = jsonString?.data(using: .utf8) else { return [] }
-        guard let json = try? JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as? [String:Any] else { return [] }
+        guard let data = jsonString?.data(using: .utf8) else {
+            return []
+        }
+        
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as? [String:Any] else {
+            return []
+        }
         
         let rates = (json?["rates"] as? [String:Double]) ?? [:]
         let currencies = rates.compactMap {

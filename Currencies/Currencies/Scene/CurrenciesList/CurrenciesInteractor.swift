@@ -46,7 +46,7 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
     func getCurrencies() {
         guard isMonitoring else { return }
         
-        service.getCurrencies(for: currency) { [weak self] result in
+        service.getCurrencies(for: currency.rawValue) { [weak self] result in
             guard let value = self?.isMonitoring, value == true else { return }
             
             switch result {
@@ -59,9 +59,15 @@ class CurrenciesInteractor : CurrenciesInputInteractor {
         }
     }
     
-    func response(currencies:[CurrencyInfo], for currency:CurrencyType) {
+    func response(currencies:[CurrencyInfo], for currency:String) {
+        guard let baseCurrencyType = CurrencyType(rawValue: currency) else {
+            let error = NSError(domain: "Invalid Type returned", code: 600, userInfo: nil)
+            delegate?.handle(error: error)
+            return
+        }
+        
         let currenciesList = currencies.compactMap { CurrencyInfo(from: $0) }
-        delegate?.fetch(currencies: currenciesList, base: currency)
+        delegate?.fetch(currencies: currenciesList, base: baseCurrencyType)
     }
 
     func handle(error:Error) {

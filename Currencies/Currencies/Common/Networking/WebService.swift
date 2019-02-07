@@ -10,12 +10,12 @@ import Foundation
 
 public typealias ResponseHandler = (RequestResult<String?>, [String:Any]) -> Void
 
-public struct WebService {
+public class WebService {
     
     let manager : URLSession = URLSession(configuration: URLSessionConfiguration.default)
     public static let instance : WebService = WebService()
     
-    fileprivate init() {}
+    init() {}
     
     @discardableResult public func request(request : Endpoint, additionalHeaders:[String:String]? = nil, completion:@escaping ResponseHandler) -> URLRequest? {
         
